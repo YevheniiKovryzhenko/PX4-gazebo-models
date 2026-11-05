@@ -18,7 +18,7 @@
       <motorNumber>0</motorNumber>
       <rotorDragCoefficient>0.0</rotorDragCoefficient>
       <rollingMomentCoefficient>0.0</rollingMomentCoefficient>
-      <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
       <motorType>velocity</motorType>
     </plugin>
     <plugin filename="gz-sim-multicopter-motor-model-system"
@@ -35,7 +35,7 @@
       <motorNumber>1</motorNumber>
       <rotorDragCoefficient>0.0</rotorDragCoefficient>
       <rollingMomentCoefficient>0.0</rollingMomentCoefficient>
-      <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
       <motorType>velocity</motorType>
     </plugin>
     <plugin filename="gz-sim-multicopter-motor-model-system"
@@ -52,7 +52,7 @@
       <motorNumber>2</motorNumber>
       <rotorDragCoefficient>0.0</rotorDragCoefficient>
       <rollingMomentCoefficient>0.0</rollingMomentCoefficient>
-      <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
       <motorType>velocity</motorType>
     </plugin>
     <plugin filename="gz-sim-multicopter-motor-model-system"
@@ -69,7 +69,7 @@
       <motorNumber>3</motorNumber>
       <rotorDragCoefficient>0.0</rotorDragCoefficient>
       <rollingMomentCoefficient>0.0</rollingMomentCoefficient>
-      <rotorVelocitySlowdownSim>1</rotorVelocitySlowdownSim>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
       <motorType>velocity</motorType>
     </plugin>
   </model>
