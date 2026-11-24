@@ -72,7 +72,16 @@ def generate():
         box(base, 'skid_' + str(y), [0, y, -.19, 0, 0, 0], [.75, .025, .025], gray, True)
     standard = ET.parse(ROOT.parent / 'standard_vtol/model.sdf').find('model/link')
     for sensor in standard.findall('sensor'):
-        base.append(deepcopy(sensor))
+        sensor = deepcopy(sensor)
+        # Older PX4 model baselines omit these labels. Keep generated X200 sensor
+        # frames identical across supported versions without altering sensor physics.
+        if sensor.find('gz_frame_id') is None:
+            ET.SubElement(sensor, 'gz_frame_id').text = 'base_link'
+        # Match the newer baseline's element order for reproducible output.
+        frame = sensor.find('gz_frame_id')
+        sensor.remove(frame)
+        sensor.insert(0, frame)
+        base.append(sensor)
     airspeed_link = node(model, 'link', name='airspeed_link')
     inertial(airspeed_link, .001, [1e-7, 1e-7, 1e-7])
     attachment = node(model, 'joint', name='airspeed_joint', type='fixed')

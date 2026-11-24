@@ -11,7 +11,7 @@ This Gazebo repository owns both `models/s2f_x200/` and
 fork-owned airframes, packages them into SITL, and creates the launch target:
 
 ```bash
-cd ~/PX4/v1.16.1-mod
+cd ~/PX4/v1.16.1-mod  # or ~/PX4/v1.17.0-mod
 make px4_sitl_simulinkctrl gz_s2f_x200
 # Or:
 HEADLESS=1 make px4_sitl_simulinkctrl gz_s2f_x200
