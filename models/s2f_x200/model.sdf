@@ -1,0 +1,997 @@
+<?xml version="1.0"?>
+<!-- Experimental integration model; regenerate with generate_model.py. -->
+<sdf version="1.10">
+  <model name="s2f_x200">
+    <pose>0 0 0.3 0 0 0</pose>
+    <link name="base_link">
+      <inertial>
+        <pose>-0.0127000254 -0 -0.0381000762 0 0 0</pose>
+        <mass>7.566999999999999</mass>
+        <inertia>
+          <ixx>0.888</ixx>
+          <iyy>1.107</iyy>
+          <izz>1.72</izz>
+          <ixy>-0.002</ixy>
+          <ixz>-0.071</ixz>
+          <iyz>0.0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="fuselage">
+        <pose>-0.28 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>1.15 0.15 0.18</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.3 0.6 1</ambient>
+          <diffuse>0.1 0.3 0.6 1</diffuse>
+        </material>
+      </visual>
+      <collision name="fuselage_collision">
+        <pose>-0.28 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>1.15 0.15 0.18</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="wing">
+        <pose>-0.05 0 0.017 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.254 2.03 0.025</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.3 0.6 1</ambient>
+          <diffuse>0.1 0.3 0.6 1</diffuse>
+        </material>
+      </visual>
+      <collision name="wing_collision">
+        <pose>-0.05 0 0.017 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.254 2.03 0.025</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="tail">
+        <pose>-0.68 0 0.038 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.1651 0.55 0.018</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.3 0.6 1</ambient>
+          <diffuse>0.1 0.3 0.6 1</diffuse>
+        </material>
+      </visual>
+      <visual name="fin">
+        <pose>-0.65 0 0.14 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.165 0.015 0.25</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.1 0.3 0.6 1</ambient>
+          <diffuse>0.1 0.3 0.6 1</diffuse>
+        </material>
+      </visual>
+      <visual name="boom_-0.35306">
+        <pose>-0.1 -0.35306 0.09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>1.05 0.025 0.025</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.2 0.2 0.2 1</ambient>
+          <diffuse>0.2 0.2 0.2 1</diffuse>
+        </material>
+      </visual>
+      <visual name="skid_-0.35306">
+        <pose>0 -0.35306 -0.19 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.75 0.025 0.025</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.2 0.2 0.2 1</ambient>
+          <diffuse>0.2 0.2 0.2 1</diffuse>
+        </material>
+      </visual>
+      <collision name="skid_-0.35306_collision">
+        <pose>0 -0.35306 -0.19 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.75 0.025 0.025</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="boom_0.35306">
+        <pose>-0.1 0.35306 0.09 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>1.05 0.025 0.025</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.2 0.2 0.2 1</ambient>
+          <diffuse>0.2 0.2 0.2 1</diffuse>
+        </material>
+      </visual>
+      <visual name="skid_0.35306">
+        <pose>0 0.35306 -0.19 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.75 0.025 0.025</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.2 0.2 0.2 1</ambient>
+          <diffuse>0.2 0.2 0.2 1</diffuse>
+        </material>
+      </visual>
+      <collision name="skid_0.35306_collision">
+        <pose>0 0.35306 -0.19 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.75 0.025 0.025</size>
+          </box>
+        </geometry>
+      </collision>
+      <sensor name="imu_sensor" type="imu">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>250</update_rate>
+        <imu>
+          <angular_velocity>
+            <x>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.0003394</stddev>
+                <dynamic_bias_stddev>3.8785e-05</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>1000</dynamic_bias_correlation_time>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.0003394</stddev>
+                <dynamic_bias_stddev>3.8785e-05</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>1000</dynamic_bias_correlation_time>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.0003394</stddev>
+                <dynamic_bias_stddev>3.8785e-05</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>1000</dynamic_bias_correlation_time>
+              </noise>
+            </z>
+          </angular_velocity>
+          <linear_acceleration>
+            <x>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.004</stddev>
+                <dynamic_bias_stddev>0.006</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>300</dynamic_bias_correlation_time>
+              </noise>
+            </x>
+            <y>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.004</stddev>
+                <dynamic_bias_stddev>0.006</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>300</dynamic_bias_correlation_time>
+              </noise>
+            </y>
+            <z>
+              <noise type="gaussian">
+                <mean>0</mean>
+                <stddev>0.004</stddev>
+                <dynamic_bias_stddev>0.006</dynamic_bias_stddev>
+                <dynamic_bias_correlation_time>300</dynamic_bias_correlation_time>
+              </noise>
+            </z>
+          </linear_acceleration>
+        </imu>
+      </sensor>
+      <sensor name="air_pressure_sensor" type="air_pressure">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>50</update_rate>
+        <air_pressure>
+          <pressure>
+            <noise type="gaussian">
+              <mean>0</mean>
+              <stddev>0.01</stddev>
+            </noise>
+          </pressure>
+        </air_pressure>
+      </sensor>
+      <sensor name="magnetometer_sensor" type="magnetometer">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>100</update_rate>
+        <magnetometer>
+          <x>
+            <noise type="gaussian">
+              <stddev>0.0001</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <stddev>0.0001</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <stddev>0.0001</stddev>
+            </noise>
+          </z>
+        </magnetometer>
+      </sensor>
+      <sensor name="navsat_sensor" type="navsat">
+        <gz_frame_id>base_link</gz_frame_id>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+      </sensor>
+    </link>
+    <link name="airspeed_link">
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-07</ixx>
+          <iyy>1e-07</iyy>
+          <izz>1e-07</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <sensor name="air_speed" type="air_speed">
+        <always_on>true</always_on>
+        <update_rate>50</update_rate>
+      </sensor>
+    </link>
+    <joint name="airspeed_joint" type="fixed">
+      <parent>base_link</parent>
+      <child>airspeed_link</child>
+    </joint>
+    <link name="rotor_0">
+      <pose>0.396240792 0.353060706 0.114300229 -0.261799388 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>1e-05</ixx>
+          <iyy>1e-05</iyy>
+          <izz>2e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="propeller">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.406400813 0.025 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="rotor_0_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_0</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_0_joint</jointName>
+      <linkName>rotor_0</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.025</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>837.7580409572781</maxRotVelocity>
+      <motorConstant>6.892284324585924e-05</motorConstant>
+      <momentConstant>0.019480612534284764</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <actuator_number>0</actuator_number>
+      <rotorDragCoefficient>0.0001</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <link name="rotor_1">
+      <pose>0.396240792 -0.353060706 0.114300229 0.261799388 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>1e-05</ixx>
+          <iyy>1e-05</iyy>
+          <izz>2e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="propeller">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.406400813 0.025 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="rotor_1_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_1</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_1_joint</jointName>
+      <linkName>rotor_1</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.025</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>837.7580409572781</maxRotVelocity>
+      <motorConstant>6.892284324585924e-05</motorConstant>
+      <momentConstant>0.019480612534284764</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <actuator_number>1</actuator_number>
+      <rotorDragCoefficient>0.0001</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <link name="rotor_2">
+      <pose>-0.396240792 0.353060706 0.114300229 -0.261799388 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>1e-05</ixx>
+          <iyy>1e-05</iyy>
+          <izz>2e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="propeller">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.406400813 0.025 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="rotor_2_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_2</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_2_joint</jointName>
+      <linkName>rotor_2</linkName>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.025</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>837.7580409572781</maxRotVelocity>
+      <motorConstant>6.892284324585924e-05</motorConstant>
+      <momentConstant>0.019480612534284764</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <actuator_number>2</actuator_number>
+      <rotorDragCoefficient>0.0001</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <link name="rotor_3">
+      <pose>-0.396240792 -0.353060706 0.114300229 0.261799388 0 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>1e-05</ixx>
+          <iyy>1e-05</iyy>
+          <izz>2e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="propeller">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.406400813 0.025 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="rotor_3_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_3</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_3_joint</jointName>
+      <linkName>rotor_3</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.025</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>837.7580409572781</maxRotVelocity>
+      <motorConstant>6.892284324585924e-05</motorConstant>
+      <momentConstant>0.019480612534284764</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <actuator_number>3</actuator_number>
+      <rotorDragCoefficient>0.0001</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <link name="rotor_4">
+      <pose>-0.850901702 -0 0.0254000508 0 1.57079633 0</pose>
+      <inertial>
+        <mass>0.005</mass>
+        <inertia>
+          <ixx>1e-05</ixx>
+          <iyy>1e-05</iyy>
+          <izz>2e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="propeller">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.406400813 0.025 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="rotor_4_joint" type="revolute">
+      <parent>base_link</parent>
+      <child>rotor_4</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-1e+16</lower>
+          <upper>1e+16</upper>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
+      <jointName>rotor_4_joint</jointName>
+      <linkName>rotor_4</linkName>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.025</timeConstantUp>
+      <timeConstantDown>0.025</timeConstantDown>
+      <maxRotVelocity>837.7580409572781</maxRotVelocity>
+      <motorConstant>8.225554131418028e-05</motorConstant>
+      <momentConstant>0.022512033651959692</momentConstant>
+      <commandSubTopic>command/motor_speed</commandSubTopic>
+      <actuator_number>4</actuator_number>
+      <rotorDragCoefficient>0.0001</rotorDragCoefficient>
+      <rollingMomentCoefficient>1e-06</rollingMomentCoefficient>
+      <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
+      <motorType>velocity</motorType>
+    </plugin>
+    <link name="left_aileron">
+      <pose>0.0127 0.754741667 0.0167 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-06</ixx>
+          <iyy>1e-06</iyy>
+          <izz>1e-06</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="surface">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.2 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="servo_0" type="revolute">
+      <parent>base_link</parent>
+      <child>left_aileron</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.5235987755982988</lower>
+          <upper>0.5235987755982988</upper>
+          <effort>5</effort>
+          <velocity>10</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_0</joint_name>
+      <sub_topic>servo_0</sub_topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.02</d_gain>
+      <cmd_max>2</cmd_max>
+      <cmd_min>-2</cmd_min>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.06939759601007696</a0>
+      <cla>4.739587808664719</cla>
+      <cda>0.65</cda>
+      <cma>0</cma>
+      <alpha_stall>0.2530727415391778</alpha_stall>
+      <cla_stall>-3.85</cla_stall>
+      <cda_stall>-0.92</cda_stall>
+      <cma_stall>0</cma_stall>
+      <cp>0.0127 0.754741667 0.0167</cp>
+      <area>0.1332</area>
+      <air_density>1.225</air_density>
+      <forward>1 0 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>base_link</link_name>
+      <control_joint_name>servo_0</control_joint_name>
+      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+    </plugin>
+    <link name="left_flap">
+      <pose>0.0127 0.278644685 0.0167 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-06</ixx>
+          <iyy>1e-06</iyy>
+          <izz>1e-06</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="surface">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.2 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="servo_1" type="revolute">
+      <parent>base_link</parent>
+      <child>left_flap</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.5235987755982988</lower>
+          <upper>0.5235987755982988</upper>
+          <effort>5</effort>
+          <velocity>10</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_1</joint_name>
+      <sub_topic>servo_1</sub_topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.02</d_gain>
+      <cmd_max>2</cmd_max>
+      <cmd_min>-2</cmd_min>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.06939759601007696</a0>
+      <cla>4.739587808664719</cla>
+      <cda>0.65</cda>
+      <cma>0</cma>
+      <alpha_stall>0.2530727415391778</alpha_stall>
+      <cla_stall>-3.85</cla_stall>
+      <cda_stall>-0.92</cda_stall>
+      <cma_stall>0</cma_stall>
+      <cp>0.0127 0.278644685 0.0167</cp>
+      <area>0.10159999999999998</area>
+      <air_density>1.225</air_density>
+      <forward>1 0 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>base_link</link_name>
+      <control_joint_name>servo_1</control_joint_name>
+      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+    </plugin>
+    <link name="right_flap">
+      <pose>0.0127 -0.278644685 0.0167 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-06</ixx>
+          <iyy>1e-06</iyy>
+          <izz>1e-06</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="surface">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.2 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="servo_2" type="revolute">
+      <parent>base_link</parent>
+      <child>right_flap</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.5235987755982988</lower>
+          <upper>0.5235987755982988</upper>
+          <effort>5</effort>
+          <velocity>10</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_2</joint_name>
+      <sub_topic>servo_2</sub_topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.02</d_gain>
+      <cmd_max>2</cmd_max>
+      <cmd_min>-2</cmd_min>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.06939759601007696</a0>
+      <cla>4.739587808664719</cla>
+      <cda>0.65</cda>
+      <cma>0</cma>
+      <alpha_stall>0.2530727415391778</alpha_stall>
+      <cla_stall>-3.85</cla_stall>
+      <cda_stall>-0.92</cda_stall>
+      <cma_stall>0</cma_stall>
+      <cp>0.0127 -0.278644685 0.0167</cp>
+      <area>0.10159999999999998</area>
+      <air_density>1.225</air_density>
+      <forward>1 0 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>base_link</link_name>
+      <control_joint_name>servo_2</control_joint_name>
+      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+    </plugin>
+    <link name="right_aileron">
+      <pose>0.0127 -0.754741667 0.0167 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-06</ixx>
+          <iyy>1e-06</iyy>
+          <izz>1e-06</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="surface">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.2 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="servo_3" type="revolute">
+      <parent>base_link</parent>
+      <child>right_aileron</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.5235987755982988</lower>
+          <upper>0.5235987755982988</upper>
+          <effort>5</effort>
+          <velocity>10</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_3</joint_name>
+      <sub_topic>servo_3</sub_topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.02</d_gain>
+      <cmd_max>2</cmd_max>
+      <cmd_min>-2</cmd_min>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>0.06939759601007696</a0>
+      <cla>4.739587808664719</cla>
+      <cda>0.65</cda>
+      <cma>0</cma>
+      <alpha_stall>0.2530727415391778</alpha_stall>
+      <cla_stall>-3.85</cla_stall>
+      <cda_stall>-0.92</cda_stall>
+      <cma_stall>0</cma_stall>
+      <cp>0.0127 -0.754741667 0.0167</cp>
+      <area>0.1332</area>
+      <air_density>1.225</air_density>
+      <forward>1 0 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>base_link</link_name>
+      <control_joint_name>servo_3</control_joint_name>
+      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+    </plugin>
+    <link name="left_elevator">
+      <pose>-0.6401 0.138706512 0.0375 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-06</ixx>
+          <iyy>1e-06</iyy>
+          <izz>1e-06</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="surface">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.2 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="servo_4" type="revolute">
+      <parent>base_link</parent>
+      <child>left_elevator</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.5235987755982988</lower>
+          <upper>0.5235987755982988</upper>
+          <effort>5</effort>
+          <velocity>10</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_4</joint_name>
+      <sub_topic>servo_4</sub_topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.02</d_gain>
+      <cmd_max>2</cmd_max>
+      <cmd_min>-2</cmd_min>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>-1.7099628199965095e-06</a0>
+      <cla>4.67846429550628</cla>
+      <cda>0.65</cda>
+      <cma>0</cma>
+      <alpha_stall>0.21380283336930536</alpha_stall>
+      <cla_stall>-3.85</cla_stall>
+      <cda_stall>-0.92</cda_stall>
+      <cma_stall>0</cma_stall>
+      <cp>-0.6401 0.138706512 0.0375</cp>
+      <area>0.043</area>
+      <air_density>1.225</air_density>
+      <forward>1 0 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>base_link</link_name>
+      <control_joint_name>servo_4</control_joint_name>
+      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+    </plugin>
+    <link name="right_elevator">
+      <pose>-0.6401 -0.138706512 0.0375 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-06</ixx>
+          <iyy>1e-06</iyy>
+          <izz>1e-06</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="surface">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.2 0.008</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="servo_5" type="revolute">
+      <parent>base_link</parent>
+      <child>right_elevator</child>
+      <axis>
+        <xyz>0 1 0</xyz>
+        <limit>
+          <lower>-0.5235987755982988</lower>
+          <upper>0.5235987755982988</upper>
+          <effort>5</effort>
+          <velocity>10</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_5</joint_name>
+      <sub_topic>servo_5</sub_topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.02</d_gain>
+      <cmd_max>2</cmd_max>
+      <cmd_min>-2</cmd_min>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>-1.7099628199965095e-06</a0>
+      <cla>4.67846429550628</cla>
+      <cda>0.65</cda>
+      <cma>0</cma>
+      <alpha_stall>0.21380283336930536</alpha_stall>
+      <cla_stall>-3.85</cla_stall>
+      <cda_stall>-0.92</cda_stall>
+      <cma_stall>0</cma_stall>
+      <cp>-0.6401 -0.138706512 0.0375</cp>
+      <area>0.043</area>
+      <air_density>1.225</air_density>
+      <forward>1 0 0</forward>
+      <upward>0 0 1</upward>
+      <link_name>base_link</link_name>
+      <control_joint_name>servo_5</control_joint_name>
+      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+    </plugin>
+    <link name="rudder">
+      <pose>-0.6125 0 0.149775449 0 0 0</pose>
+      <inertial>
+        <mass>0.001</mass>
+        <inertia>
+          <ixx>1e-06</ixx>
+          <iyy>1e-06</iyy>
+          <izz>1e-06</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <visual name="surface">
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.08 0.008 0.17</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.9 0.4 0.05 1</ambient>
+          <diffuse>0.9 0.4 0.05 1</diffuse>
+        </material>
+      </visual>
+    </link>
+    <joint name="servo_6" type="revolute">
+      <parent>base_link</parent>
+      <child>rudder</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-0.5235987755982988</lower>
+          <upper>0.5235987755982988</upper>
+          <effort>5</effort>
+          <velocity>10</velocity>
+        </limit>
+      </axis>
+    </joint>
+    <plugin filename="gz-sim-joint-position-controller-system" name="gz::sim::systems::JointPositionController">
+      <joint_name>servo_6</joint_name>
+      <sub_topic>servo_6</sub_topic>
+      <p_gain>1</p_gain>
+      <i_gain>0</i_gain>
+      <d_gain>0.02</d_gain>
+      <cmd_max>2</cmd_max>
+      <cmd_min>-2</cmd_min>
+    </plugin>
+    <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
+      <a0>-1.7099628199965095e-06</a0>
+      <cla>4.67846429550628</cla>
+      <cda>0.65</cda>
+      <cma>0</cma>
+      <alpha_stall>0.21380283336930536</alpha_stall>
+      <cla_stall>-3.85</cla_stall>
+      <cda_stall>-0.92</cda_stall>
+      <cma_stall>0</cma_stall>
+      <cp>-0.6125 0 0.149775449</cp>
+      <area>0.0334</area>
+      <air_density>1.225</air_density>
+      <forward>1 0 0</forward>
+      <upward>0 -1 0</upward>
+      <link_name>base_link</link_name>
+      <control_joint_name>servo_6</control_joint_name>
+      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+    </plugin>
+    <static>false</static>
+  </model>
+</sdf>
