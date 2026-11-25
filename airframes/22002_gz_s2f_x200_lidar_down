@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# @name S2F-X200 - Gazebo, Downward Lidar (experimental)
+# @type Standard VTOL
+# @class VTOL
+# @maintainer S2F-X200 project
+#
+
+PX4_SIM_MODEL=${PX4_SIM_MODEL:=s2f_x200_lidar_down}
+. ${R}etc/init.d-posix/airframes/22001_gz_s2f_x200
+
+# Lidar origin relative to the base-link IMU, in body FRD metres.
+# Keep these synchronized with models/s2f_x200_lidar_down/model.sdf.
+param set-default EKF2_RNG_POS_X 0.35
+param set-default EKF2_RNG_POS_Y 0.0
+param set-default EKF2_RNG_POS_Z 0.10

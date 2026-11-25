@@ -1,101 +1,124 @@
-# S2F-X200: experimental Gazebo integration model
+# S2F-X200: experimental Gazebo dynamics model
 
-This is a representative five-motor/seven-servo model for testing PX4/Simulink
-interfaces, state reporting, and controller logic before hardware deployment.
-It is not a validated replacement for the MATLAB nonlinear aircraft model.
+Five motors and seven servos, with numerical properties sampled from the
+S2F-X200 MATLAB aircraft model. Both modified PX4 versions use the same assets.
 
-## Contents and launch
-
-This Gazebo repository owns both `models/s2f_x200/` and
-`airframes/22001_gz_s2f_x200`. The matching modified PX4 repository discovers
-fork-owned airframes, packages them into SITL, and creates the launch target:
+## Launch
 
 ```bash
 cd ~/PX4/v1.16.1-mod  # or ~/PX4/v1.17.0-mod
 make px4_sitl_simulinkctrl gz_s2f_x200
-# Or:
-HEADLESS=1 make px4_sitl_simulinkctrl gz_s2f_x200
+# With downward lidar:
+make px4_sitl_simulinkctrl gz_s2f_x200_lidar_down
 ```
 
-The shared PX4 hardware airframe supplies the vehicle type and logical channel
-counts. The fork-owned Gazebo airframe selects this model and assigns only the
-simulator output functions. Physical hardware routing is unaffected.
+The Gazebo-owned presets are 22001 and 22002. Both source the same PX4 hardware
+preset and use identical actuator routing. `HEADLESS=1` is also supported by the
+normal PX4 launcher. Select the desired preset at startup; persisted parameter
+values can override preset defaults.
 
-`matlab_data.json` contains the numeric source snapshot and source SHA-256.
-`generate_model.py` regenerates `model.sdf` using Python's standard library and
-the existing `models/standard_vtol/model.sdf` sensor definitions:
+## Mass, CG and propulsion
+
+- Total mass: **7.6 kg**, including the moving rotor and surface links.
+- CG in body FRD: **[-0.0127000254, 0, +0.0381000762] m**. Gazebo uses FLU.
+- Full inertia about CG, in FLU, in kg m²:
+  `[[0.888,-0.002,-0.071],[-0.002,1.107,0],[-0.071,0,1.720]]`.
+  The generator subtracts child-link inertia and parallel-axis contributions
+  from the base so these are aggregate properties at neutral joint angles.
+- Five hub positions, the four lift motors' **15° outward cant**, rotation
+  signs, and 16-inch diameter come from the reference vehicle.
+- Lift thrust and torque fit the active `DynamicInflowModel`/BEMT calculation,
+  including `CALC_FM`'s download correction. Cruise fits
+  `MP_Propeller_Model`. The quadratic approximation covers 3000–8000 RPM;
+  reference samples and fit errors are stored in `matlab_data.json`.
+- Lift reaction torque is about **0.02022 N m per N** of thrust; cruise is
+  **0.02251 N m per N**. Rotation signs follow the reference force calculation,
+  including the `-SpinDir` passed to the lift model. The earlier integration
+  model reversed these signs. Cant-induced moments remain physically active;
+  yaw authority is not determined by reaction torque alone.
+- Lift motor rise/fall constants are approximately **88.6/83.4 ms**; cruise
+  **95.1/89.7 ms**, replacing the original 25 ms values. They match the 63.2%
+  response of a reference ESC PI / propeller-inertia calculation for ±250 RPM
+  steps from 5000 RPM, using sampled steady propeller load torque and the
+  reference 1.271 N m torque limit. This is a local first-order approximation;
+  large steps, saturation and dynamic inflow are not reproduced exactly.
+- Rotor polar inertia is 0.000371 kg m² (lift), 0.000386 kg m² (cruise).
+  Gazebo visual rotation is slowed by ten; rotor-link inertia is multiplied
+  accordingly to preserve angular momentum and spin-up reaction. Its neutral
+  contribution is removed from the base tensor to retain the aggregate target.
+
+The lidar variant adds the existing LW20 housing and a sensor link: **21 g**
+total payload, giving **7.621 kg**. The housing is ahead of the fuselage;
+its ray starts at FLU `[0.35, 0, -0.10]` m, clear of the housing and skids.
+The lidar preset sets `EKF2_RNG_POS_X/Y/Z` to `[0.35, 0, 0.10]` m in body
+FRD, matching the physical sensor offset from the base-link IMU.
+It reports 50 Hz downward range over 0.1–100 m using the standard PX4 bridge's
+`lidar_sensor_link/sensor/lidar/scan` subscription. No client changes are needed.
+
+## Aerodynamic mapping
+
+Gazebo's standard distributed LiftDrag systems represent seven wing/tail panels.
+Panel areas and quarter-chord coordinates include the active strip model's
+geometry corrections. Wing incidence is 6°, tail incidence is 0°. Section slopes
+and offsets come from the current E1212 / N0012 tables, with finite-wing slope
+corrections and the source wing lift scale of 0.75.
+
+Pre-stall drag and pitch coefficients are effective distributed fits to the
+active `Strip_Aero_Model` **including NLS**, sampled at 20 m/s and -3°, 0°, +3°
+body angle of attack. The committed checks compare lift/drag/pitch against those
+source samples. This also supplies local rotational-flow effects at each panel.
+The standard plugin lacks an independent zero-lift drag term, so its drag curve
+cannot reproduce the full MATLAB polar away from the fitted conditions.
+
+Control lift/sideforce and horizontal-surface pitch effectiveness are sampled
+from the active model at ±2° deflection and 20 m/s. Positive wing/elevator
+commands now produce the reference upward force; the old model used the
+opposite sign. Channels remain: left aileron, left flap, right flap, right
+aileron, left elevator, right elevator, rudder. Each joint spans ±30°.
+
+This is a closer simulation approximation, not a port of the full nonlinear
+model. Propwash, full Reynolds/Mach dependencies, unsteady inflow, nonlinear
+control interactions, exact lateral control moments and dynamic derivatives,
+post-stall flight, and the MATLAB rudder-to-boom-tilt coupling remain
+approximations or are unimplemented. Visual geometry is schematic. Closed-loop
+hover, yaw response and both VTOL transitions still require flight testing with
+your controller before using this model for gain or performance validation.
+
+## Actuator convention
+
+PX4 motor channels 0–4 are four lift rotors followed by cruise; functions
+101–105 map to `SIM_GZ_EC` outputs 1–5. The speed ceiling remains 838 rad/s
+(about 8000 RPM), an integration assumption rather than a measured hardware ESC
+limit. With the default zero thrust-curve factor, normalized commands are speed
+fractions and thrust is quadratic. Controllers publishing normalized thrust
+must convert to speed or configure a consistent motor curve.
+
+Servo functions 201–207 map to `servo_0..6`. Neither actuator normalization nor
+controller code is changed here. The publisher must still supply the expected
+`vehicle_thrust_setpoint` and `vtol_vehicle_status` information. See PX4's
+`src/modules/simulink_parameters/CONTROLLER_INTEGRATION.md` for that contract.
+
+## Regeneration and checks
+
+Gazebo needs no MATLAB, SciPy, external meshes, or source-machine paths to run
+these committed assets. Regenerating SDF and checking numerical properties uses
+Python's standard library:
 
 ```bash
 python3 models/s2f_x200/generate_model.py
-gz sdf -k models/s2f_x200/model.sdf
+python3 models/s2f_x200/validate_model.py
+SDF_PATH="$PWD/models" gz sdf -k models/s2f_x200_lidar_down/model.sdf
+gz sdf --inertial-stats models/s2f_x200/model.sdf
 ```
 
-No MATLAB installation, external meshes, or absolute source-machine paths are
-needed to run the committed model. Visuals and collisions use basic shapes.
+To refresh the numeric snapshot from a newer reference, the optional offline
+export uses MATLAB, NumPy and SciPy:
 
-## Source-derived properties
+```bash
+python3 models/s2f_x200/update_reference.py '/path/to/S2F-X200' --matlab matlab
+```
 
-The source is `Vehicle.mat` from the S2F-X200 MATLAB simulation folder, with
-propeller polynomial interpretation checked against `MP_Propeller_Model.m`.
-
-- Total articulated model mass: 7.6 kg.
-- Body inertia diagonal: 0.888, 1.107, 1.720 kg m², with the stored products
-  of inertia transformed from body FRD to Gazebo FLU.
-- CG, five rotor positions, lift-rotor cant angles, rotation signs, and 16-inch
-  propeller diameter come from the stored MATLAB vehicle.
-- Span: 2.03 m; reference wing area: 0.50344 m².
-- Seven surface channels preserve the model order: left aileron, left flap,
-  right flap, right aileron, left elevator, right elevator, rudder.
-- Panel areas and quarter-chord positions use the stored strip geometry.
-- Small-angle lift slopes and zero-lift offsets are fit from the stored E1212
-  and N0012 section tables over -3 to +3 degrees, with an approximate finite-wing
-  correction. Stall angles use the section table's peak lift location.
-- Static propeller coefficients approximate the MATLAB thrust/torque polynomials
-  over 3000–8000 RPM with Gazebo's quadratic speed model. Lift motors use about
-  `6.892e-5 N/(rad/s)^2`; cruise uses about `8.226e-5 N/(rad/s)^2`.
-
-## Actuator interface
-
-PX4 `actuator_motors.control[0..4]` maps to Gazebo motor channels 0–4: four lift
-rotors followed by the cruise propeller. The simulator airframe maps functions
-101–105 to `SIM_GZ_EC` outputs 1–5 and sets an 838 rad/s ceiling (approximately
-8000 RPM). This ceiling is an integration-model assumption, not a hardware ESC
-limit. With PX4's default motor thrust-curve factor of zero, a normalized command
-is approximately a speed fraction; thrust is consequently quadratic in that
-command. If the controller publishes normalized thrust instead, configure a
-consistent motor curve or convert thrust to speed fraction in the controller.
-Do not silently mix these conventions.
-
-`actuator_servos.control[0..6]` maps to `servo_0..6` through functions 201–207
-and `SIM_GZ_SV` outputs 1–7. Each simulated joint spans -30 to +30 degrees;
-normalized zero is center. Servo 7 is the rudder slot; send zero or leave the
-channel unused if the controller does not use it. Check each surface's physical
-sign against the model's servo-mix parameters before closed-loop flight.
-
-The airframe sets `MPC_USE_HTE=0` and nominal `MPC_THR_HOVER=0.4`. Its publisher
-must still report normalized body thrust through `vehicle_thrust_setpoint` and
-actual VTOL state through `vtol_vehicle_status`. The Gazebo model does not
-synthesize controller-status messages or a controller watchdog.
-
-The usual stock Gazebo VTOL ESC-current workarounds (`FD_ACT_EN=0`,
-`FD_ESCS_EN=0`) are scoped to this simulation airframe. They do not change the
-hardware airframe's failure-detector defaults.
-
-## Approximations and validation scope
-
-Wing/flap segmentation, simple visual geometry, servo dynamics, lift-to-control
-angle effectiveness, post-stall behavior, body drag, propwash, dynamic derivatives,
-and airspeed-dependent propeller performance are approximations. The section
-fits do not reproduce the complete nonlinear MATLAB aerodynamic database.
-Fin geometry is represented as a vertical surface; panel forces are applied to
-the body at their representative centers. Small articulated-link inertias add
-a small contribution on top of the specified body inertia. These choices are
-intended for interface and logic testing, not controller-gain validation or
-performance prediction.
-
-SDF validation and a headless Gazebo load/step test check model structure and
-plugin loading. A closed-loop flight with the real Simulink controller, including
-sign checks, stationary hover, both VTOL transitions, landing, and failure cases,
-is still required. The PX4 repository's
-`src/modules/simulink_parameters/CONTROLLER_INTEGRATION.md` documents the message
-contract and test cases.
+`export_reference.m` samples read-only inputs in a temporary directory.
+`update_reference.py` records source-file hashes, computes fits and regenerates
+SDF. It never saves or alters the reference vehicle. Refreshes require reviewing
+fits and signs again if the source model's conventions or topology change.

@@ -4,18 +4,6 @@
   <model name="s2f_x200">
     <pose>0 0 0.3 0 0 0</pose>
     <link name="base_link">
-      <inertial>
-        <pose>-0.0127000254 -0 -0.0381000762 0 0 0</pose>
-        <mass>7.566999999999999</mass>
-        <inertia>
-          <ixx>0.888</ixx>
-          <iyy>1.107</iyy>
-          <izz>1.72</izz>
-          <ixy>-0.002</ixy>
-          <ixz>-0.071</ixz>
-          <iyz>0.0</iyz>
-        </inertia>
-      </inertial>
       <visual name="fuselage">
         <pose>-0.28 0 0 0 0 0</pose>
         <geometry>
@@ -243,6 +231,18 @@
         <always_on>1</always_on>
         <update_rate>30</update_rate>
       </sensor>
+      <inertial>
+        <pose>-0.0119660401 -6.21197146e-08 -0.0386312357 0 0 0</pose>
+        <mass>7.5669999999999975</mass>
+        <inertia>
+          <ixx>0.8723244930668674</ixx>
+          <iyy>1.0887940113964045</iyy>
+          <izz>1.692104365544703</izz>
+          <ixy>-0.0020002834092384372</ixy>
+          <ixz>-0.07147062395556877</ixz>
+          <iyz>9.707054314940722e-08</iyz>
+        </inertia>
+      </inertial>
     </link>
     <link name="airspeed_link">
       <inertial>
@@ -270,9 +270,9 @@
       <inertial>
         <mass>0.005</mass>
         <inertia>
-          <ixx>1e-05</ixx>
-          <iyy>1e-05</iyy>
-          <izz>2e-05</izz>
+          <ixx>0.001855</ixx>
+          <iyy>0.001855</iyy>
+          <izz>0.00371</izz>
           <ixy>0</ixy>
           <ixz>0</ixz>
           <iyz>0</iyz>
@@ -305,12 +305,12 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_0_joint</jointName>
       <linkName>rotor_0</linkName>
-      <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.025</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.088554069064366</timeConstantUp>
+      <timeConstantDown>0.0833682936275226</timeConstantDown>
       <maxRotVelocity>837.7580409572781</maxRotVelocity>
-      <motorConstant>6.892284324585924e-05</motorConstant>
-      <momentConstant>0.019480612534284764</momentConstant>
+      <motorConstant>6.828683115049332e-05</motorConstant>
+      <momentConstant>0.020216740356724494</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic>
       <actuator_number>0</actuator_number>
       <rotorDragCoefficient>0.0001</rotorDragCoefficient>
@@ -323,9 +323,9 @@
       <inertial>
         <mass>0.005</mass>
         <inertia>
-          <ixx>1e-05</ixx>
-          <iyy>1e-05</iyy>
-          <izz>2e-05</izz>
+          <ixx>0.001855</ixx>
+          <iyy>0.001855</iyy>
+          <izz>0.00371</izz>
           <ixy>0</ixy>
           <ixz>0</ixz>
           <iyz>0</iyz>
@@ -358,12 +358,12 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_1_joint</jointName>
       <linkName>rotor_1</linkName>
-      <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.025</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.088554069064366</timeConstantUp>
+      <timeConstantDown>0.0833682936275226</timeConstantDown>
       <maxRotVelocity>837.7580409572781</maxRotVelocity>
-      <motorConstant>6.892284324585924e-05</motorConstant>
-      <momentConstant>0.019480612534284764</momentConstant>
+      <motorConstant>6.828683115049332e-05</motorConstant>
+      <momentConstant>0.020216740356724494</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic>
       <actuator_number>1</actuator_number>
       <rotorDragCoefficient>0.0001</rotorDragCoefficient>
@@ -376,9 +376,9 @@
       <inertial>
         <mass>0.005</mass>
         <inertia>
-          <ixx>1e-05</ixx>
-          <iyy>1e-05</iyy>
-          <izz>2e-05</izz>
+          <ixx>0.001855</ixx>
+          <iyy>0.001855</iyy>
+          <izz>0.00371</izz>
           <ixy>0</ixy>
           <ixz>0</ixz>
           <iyz>0</iyz>
@@ -411,12 +411,12 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_2_joint</jointName>
       <linkName>rotor_2</linkName>
-      <turningDirection>cw</turningDirection>
-      <timeConstantUp>0.025</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
+      <turningDirection>ccw</turningDirection>
+      <timeConstantUp>0.088554069064366</timeConstantUp>
+      <timeConstantDown>0.0833682936275226</timeConstantDown>
       <maxRotVelocity>837.7580409572781</maxRotVelocity>
-      <motorConstant>6.892284324585924e-05</motorConstant>
-      <momentConstant>0.019480612534284764</momentConstant>
+      <motorConstant>6.828683115049332e-05</motorConstant>
+      <momentConstant>0.020216740356724494</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic>
       <actuator_number>2</actuator_number>
       <rotorDragCoefficient>0.0001</rotorDragCoefficient>
@@ -429,9 +429,9 @@
       <inertial>
         <mass>0.005</mass>
         <inertia>
-          <ixx>1e-05</ixx>
-          <iyy>1e-05</iyy>
-          <izz>2e-05</izz>
+          <ixx>0.001855</ixx>
+          <iyy>0.001855</iyy>
+          <izz>0.00371</izz>
           <ixy>0</ixy>
           <ixz>0</ixz>
           <iyz>0</iyz>
@@ -464,12 +464,12 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_3_joint</jointName>
       <linkName>rotor_3</linkName>
-      <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.025</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.088554069064366</timeConstantUp>
+      <timeConstantDown>0.0833682936275226</timeConstantDown>
       <maxRotVelocity>837.7580409572781</maxRotVelocity>
-      <motorConstant>6.892284324585924e-05</motorConstant>
-      <momentConstant>0.019480612534284764</momentConstant>
+      <motorConstant>6.828683115049332e-05</motorConstant>
+      <momentConstant>0.020216740356724494</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic>
       <actuator_number>3</actuator_number>
       <rotorDragCoefficient>0.0001</rotorDragCoefficient>
@@ -478,13 +478,13 @@
       <motorType>velocity</motorType>
     </plugin>
     <link name="rotor_4">
-      <pose>-0.850901702 -0 0.0254000508 0 1.57079633 0</pose>
+      <pose>-0.850901702 0 0.0254000508 0 1.57079633 0</pose>
       <inertial>
         <mass>0.005</mass>
         <inertia>
-          <ixx>1e-05</ixx>
-          <iyy>1e-05</iyy>
-          <izz>2e-05</izz>
+          <ixx>0.00193</ixx>
+          <iyy>0.00193</iyy>
+          <izz>0.00386</izz>
           <ixy>0</ixy>
           <ixz>0</ixz>
           <iyz>0</iyz>
@@ -517,12 +517,12 @@
     <plugin filename="gz-sim-multicopter-motor-model-system" name="gz::sim::systems::MulticopterMotorModel">
       <jointName>rotor_4_joint</jointName>
       <linkName>rotor_4</linkName>
-      <turningDirection>ccw</turningDirection>
-      <timeConstantUp>0.025</timeConstantUp>
-      <timeConstantDown>0.025</timeConstantDown>
+      <turningDirection>cw</turningDirection>
+      <timeConstantUp>0.0951087744076428</timeConstantUp>
+      <timeConstantDown>0.0896515545649721</timeConstantDown>
       <maxRotVelocity>837.7580409572781</maxRotVelocity>
-      <motorConstant>8.225554131418028e-05</motorConstant>
-      <momentConstant>0.022512033651959692</momentConstant>
+      <motorConstant>8.232147628745484e-05</motorConstant>
+      <momentConstant>0.022507622376308472</momentConstant>
       <commandSubTopic>command/motor_speed</commandSubTopic>
       <actuator_number>4</actuator_number>
       <rotorDragCoefficient>0.0001</rotorDragCoefficient>
@@ -531,7 +531,7 @@
       <motorType>velocity</motorType>
     </plugin>
     <link name="left_aileron">
-      <pose>0.0127 0.754741667 0.0167 0 0 0</pose>
+      <pose>0.0378460503 0.754741667 0.0127 0 0 0</pose>
       <inertial>
         <mass>0.001</mass>
         <inertia>
@@ -579,25 +579,26 @@
       <cmd_min>-2</cmd_min>
     </plugin>
     <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
-      <a0>0.06939759601007696</a0>
-      <cla>4.739587808664719</cla>
-      <cda>0.65</cda>
-      <cma>0</cma>
-      <alpha_stall>0.2530727415391778</alpha_stall>
-      <cla_stall>-3.85</cla_stall>
+      <a0>0.1581291065472497</a0>
+      <cla>3.7754249313912953</cla>
+      <cda>0.45856826043059196</cda>
+      <cma>-0.17872037635247048</cma>
+      <alpha_stall>0.30648209296676776</alpha_stall>
+      <cla_stall>-2.8875</cla_stall>
       <cda_stall>-0.92</cda_stall>
       <cma_stall>0</cma_stall>
-      <cp>0.0127 0.754741667 0.0167</cp>
+      <cp>0.0378460503 0.754741667 0.0127</cp>
       <area>0.1332</area>
       <air_density>1.225</air_density>
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
       <control_joint_name>servo_0</control_joint_name>
-      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+      <control_joint_rad_to_cl>1.351119258016432</control_joint_rad_to_cl>
+      <cm_delta>-0.14834621877972096</cm_delta>
     </plugin>
     <link name="left_flap">
-      <pose>0.0127 0.278644685 0.0167 0 0 0</pose>
+      <pose>0.0378460503 0.278644685 0.0127 0 0 0</pose>
       <inertial>
         <mass>0.001</mass>
         <inertia>
@@ -645,25 +646,26 @@
       <cmd_min>-2</cmd_min>
     </plugin>
     <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
-      <a0>0.06939759601007696</a0>
-      <cla>4.739587808664719</cla>
-      <cda>0.65</cda>
-      <cma>0</cma>
-      <alpha_stall>0.2530727415391778</alpha_stall>
-      <cla_stall>-3.85</cla_stall>
+      <a0>0.1581291065472497</a0>
+      <cla>3.7754249313912953</cla>
+      <cda>0.45856826043059196</cda>
+      <cma>-0.17872037635247048</cma>
+      <alpha_stall>0.30648209296676776</alpha_stall>
+      <cla_stall>-2.8875</cla_stall>
       <cda_stall>-0.92</cda_stall>
       <cma_stall>0</cma_stall>
-      <cp>0.0127 0.278644685 0.0167</cp>
+      <cp>0.0378460503 0.278644685 0.0127</cp>
       <area>0.10159999999999998</area>
       <air_density>1.225</air_density>
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
       <control_joint_name>servo_1</control_joint_name>
-      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+      <control_joint_rad_to_cl>1.6400129244003812</control_joint_rad_to_cl>
+      <cm_delta>0.012699155504290573</cm_delta>
     </plugin>
     <link name="right_flap">
-      <pose>0.0127 -0.278644685 0.0167 0 0 0</pose>
+      <pose>0.0378460503 -0.278644685 0.0127 0 0 0</pose>
       <inertial>
         <mass>0.001</mass>
         <inertia>
@@ -711,25 +713,26 @@
       <cmd_min>-2</cmd_min>
     </plugin>
     <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
-      <a0>0.06939759601007696</a0>
-      <cla>4.739587808664719</cla>
-      <cda>0.65</cda>
-      <cma>0</cma>
-      <alpha_stall>0.2530727415391778</alpha_stall>
-      <cla_stall>-3.85</cla_stall>
+      <a0>0.1581291065472497</a0>
+      <cla>3.7754249313912953</cla>
+      <cda>0.45856826043059196</cda>
+      <cma>-0.17872037635247048</cma>
+      <alpha_stall>0.30648209296676776</alpha_stall>
+      <cla_stall>-2.8875</cla_stall>
       <cda_stall>-0.92</cda_stall>
       <cma_stall>0</cma_stall>
-      <cp>0.0127 -0.278644685 0.0167</cp>
+      <cp>0.0378460503 -0.278644685 0.0127</cp>
       <area>0.10159999999999998</area>
       <air_density>1.225</air_density>
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
       <control_joint_name>servo_2</control_joint_name>
-      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+      <control_joint_rad_to_cl>1.6400129244003812</control_joint_rad_to_cl>
+      <cm_delta>0.012699155504290573</cm_delta>
     </plugin>
     <link name="right_aileron">
-      <pose>0.0127 -0.754741667 0.0167 0 0 0</pose>
+      <pose>0.0378460503 -0.754741667 0.0127 0 0 0</pose>
       <inertial>
         <mass>0.001</mass>
         <inertia>
@@ -777,25 +780,26 @@
       <cmd_min>-2</cmd_min>
     </plugin>
     <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
-      <a0>0.06939759601007696</a0>
-      <cla>4.739587808664719</cla>
-      <cda>0.65</cda>
-      <cma>0</cma>
-      <alpha_stall>0.2530727415391778</alpha_stall>
-      <cla_stall>-3.85</cla_stall>
+      <a0>0.1581291065472497</a0>
+      <cla>3.7754249313912953</cla>
+      <cda>0.45856826043059196</cda>
+      <cma>-0.17872037635247048</cma>
+      <alpha_stall>0.30648209296676776</alpha_stall>
+      <cla_stall>-2.8875</cla_stall>
       <cda_stall>-0.92</cda_stall>
       <cma_stall>0</cma_stall>
-      <cp>0.0127 -0.754741667 0.0167</cp>
+      <cp>0.0378460503 -0.754741667 0.0127</cp>
       <area>0.1332</area>
       <air_density>1.225</air_density>
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
       <control_joint_name>servo_3</control_joint_name>
-      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+      <control_joint_rad_to_cl>1.351119258016432</control_joint_rad_to_cl>
+      <cm_delta>-0.14834621877972096</cm_delta>
     </plugin>
     <link name="left_elevator">
-      <pose>-0.6401 0.138706512 0.0375 0 0 0</pose>
+      <pose>-0.627577775 0.138706512 0.0651504953 0 0 0</pose>
       <inertial>
         <mass>0.001</mass>
         <inertia>
@@ -843,25 +847,26 @@
       <cmd_min>-2</cmd_min>
     </plugin>
     <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
-      <a0>-1.7099628199965095e-06</a0>
-      <cla>4.67846429550628</cla>
-      <cda>0.65</cda>
-      <cma>0</cma>
-      <alpha_stall>0.21380283336930536</alpha_stall>
+      <a0>-9.141881045395407e-07</a0>
+      <cla>4.883570204249686</cla>
+      <cda>0.5780330589567092</cda>
+      <cma>0.08821615261991476</cma>
+      <alpha_stall>0.2138019191812008</alpha_stall>
       <cla_stall>-3.85</cla_stall>
       <cda_stall>-0.92</cda_stall>
       <cma_stall>0</cma_stall>
-      <cp>-0.6401 0.138706512 0.0375</cp>
+      <cp>-0.627577775 0.138706512 0.0651504953</cp>
       <area>0.043</area>
       <air_density>1.225</air_density>
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
       <control_joint_name>servo_4</control_joint_name>
-      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+      <control_joint_rad_to_cl>2.30191422863368</control_joint_rad_to_cl>
+      <cm_delta>-0.022339698134869277</cm_delta>
     </plugin>
     <link name="right_elevator">
-      <pose>-0.6401 -0.138706512 0.0375 0 0 0</pose>
+      <pose>-0.627577775 -0.138706512 0.0651504953 0 0 0</pose>
       <inertial>
         <mass>0.001</mass>
         <inertia>
@@ -909,25 +914,26 @@
       <cmd_min>-2</cmd_min>
     </plugin>
     <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
-      <a0>-1.7099628199965095e-06</a0>
-      <cla>4.67846429550628</cla>
-      <cda>0.65</cda>
-      <cma>0</cma>
-      <alpha_stall>0.21380283336930536</alpha_stall>
+      <a0>-9.141881045395407e-07</a0>
+      <cla>4.883570204249686</cla>
+      <cda>0.5780330589567092</cda>
+      <cma>0.08821615261991476</cma>
+      <alpha_stall>0.2138019191812008</alpha_stall>
       <cla_stall>-3.85</cla_stall>
       <cda_stall>-0.92</cda_stall>
       <cma_stall>0</cma_stall>
-      <cp>-0.6401 -0.138706512 0.0375</cp>
+      <cp>-0.627577775 -0.138706512 0.0651504953</cp>
       <area>0.043</area>
       <air_density>1.225</air_density>
       <forward>1 0 0</forward>
       <upward>0 0 1</upward>
       <link_name>base_link</link_name>
       <control_joint_name>servo_5</control_joint_name>
-      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+      <control_joint_rad_to_cl>2.30191422863368</control_joint_rad_to_cl>
+      <cm_delta>-0.022339698134869277</cm_delta>
     </plugin>
     <link name="rudder">
-      <pose>-0.6125 0 0.149775449 0 0 0</pose>
+      <pose>-0.614887605 0.00047005988 0.167875525 0 0 0</pose>
       <inertial>
         <mass>0.001</mass>
         <inertia>
@@ -975,22 +981,23 @@
       <cmd_min>-2</cmd_min>
     </plugin>
     <plugin filename="gz-sim-lift-drag-system" name="gz::sim::systems::LiftDrag">
-      <a0>-1.7099628199965095e-06</a0>
-      <cla>4.67846429550628</cla>
-      <cda>0.65</cda>
-      <cma>0</cma>
-      <alpha_stall>0.21380283336930536</alpha_stall>
+      <a0>-9.141881045395407e-07</a0>
+      <cla>3.516442509430245</cla>
+      <cda>0.33671131567674745</cda>
+      <cma>-0.023014717764702326</cma>
+      <alpha_stall>0.2138019191812008</alpha_stall>
       <cla_stall>-3.85</cla_stall>
       <cda_stall>-0.92</cda_stall>
       <cma_stall>0</cma_stall>
-      <cp>-0.6125 0 0.149775449</cp>
+      <cp>-0.614887605 0.00047005988 0.167875525</cp>
       <area>0.0334</area>
       <air_density>1.225</air_density>
       <forward>1 0 0</forward>
-      <upward>0 -1 0</upward>
+      <upward>0 1 0</upward>
       <link_name>base_link</link_name>
       <control_joint_name>servo_6</control_joint_name>
-      <control_joint_rad_to_cl>-1.5</control_joint_rad_to_cl>
+      <control_joint_rad_to_cl>2.015058772166655</control_joint_rad_to_cl>
+      <cm_delta>0.0</cm_delta>
     </plugin>
     <static>false</static>
   </model>

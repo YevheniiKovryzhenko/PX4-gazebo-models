@@ -51,17 +51,55 @@ def plugin(model, filename, name, values):
     return result
 
 
+def parallel_axis(mass, position):
+    norm = sum(x * x for x in position)
+    return [[mass * ((norm if i == j else 0) - position[i] * position[j])
+             for j in range(3)] for i in range(3)]
+
+
+def rotation(roll, pitch, yaw):
+    cr, sr, cp, sp, cy, sy = (math.cos(roll), math.sin(roll), math.cos(pitch),
+                             math.sin(pitch), math.cos(yaw), math.sin(yaw))
+    return [[cy*cp, cy*sp*sr-sy*cr, cy*sp*cr+sy*sr],
+            [sy*cp, sy*sp*sr+cy*cr, sy*sp*cr-cy*sr], [-sp, cp*sr, cp*cr]]
+
+
+def compensate_base_inertia(model, base):
+    """Match the MATLAB total mass, CG and tensor at neutral joint positions."""
+    mass = DATA['mass_kg']
+    first_moment = [mass * x for x in DATA['cg_flu_m']]
+    shift = parallel_axis(mass, DATA['cg_flu_m'])
+    origin_tensor = [[DATA['inertia_flu_kg_m2'][i][j] + shift[i][j]
+                      for j in range(3)] for i in range(3)]
+    for link in model.findall('link'):
+        if link is base:
+            continue
+        part_mass = float(link.findtext('inertial/mass'))
+        pose = [float(x) for x in link.findtext('pose', '0 0 0 0 0 0').split()]
+        rot = rotation(*pose[3:])
+        local = link.find('inertial/inertia')
+        tensor = [[float(local.findtext('i' + a + b if a <= b else 'i' + b + a))
+                   for b in 'xyz'] for a in 'xyz']
+        shift = parallel_axis(part_mass, pose[:3])
+        mass -= part_mass
+        first_moment = [first_moment[i] - part_mass * pose[i] for i in range(3)]
+        for i in range(3):
+            for j in range(3):
+                origin_tensor[i][j] -= shift[i][j] + sum(
+                    rot[i][k] * tensor[k][l] * rot[j][l]
+                    for k in range(3) for l in range(3))
+    cg = [x / mass for x in first_moment]
+    shift = parallel_axis(mass, cg)
+    tensor = [[origin_tensor[i][j] - shift[i][j] for j in range(3)] for i in range(3)]
+    inertial(base, mass, [tensor[i][i] for i in range(3)], cg + [0, 0, 0],
+             [tensor[0][1], tensor[0][2], tensor[1][2]])
+
+
 def generate():
     sdf = ET.Element('sdf', version='1.10')
     model = node(sdf, 'model', name='s2f_x200')
     node(model, 'pose', [0, 0, .3, 0, 0, 0])
     base = node(model, 'link', name='base_link')
-    tensor = DATA['inertia_flu_kg_m2']
-    # The small articulated-link masses are deducted from the base-link mass.
-    # Their contribution to total inertia is small and is not subtracted here.
-    inertial(base, DATA['mass_kg'] - .005 * 5 - .001 * 7 - .001,
-             [tensor[i][i] for i in range(3)], DATA['cg_flu_m'] + [0, 0, 0],
-             [tensor[0][1], tensor[0][2], tensor[1][2]])
     blue, gray, orange = '0.1 0.3 0.6 1', '0.2 0.2 0.2 1', '0.9 0.4 0.05 1'
     box(base, 'fuselage', [-.28, 0, 0, 0, 0, 0], [1.15, .15, .18], blue, True)
     box(base, 'wing', [-.05, 0, .017, 0, 0, 0], [.254, DATA['wing_span_m'], .025], blue, True)
@@ -94,7 +132,10 @@ def generate():
         link = node(model, 'link', name=f'rotor_{index}')
         pose = rotor['position_flu_m'] + [math.radians(rotor['roll_deg']), math.radians(rotor['pitch_deg']), 0]
         node(link, 'pose', pose)
-        inertial(link, .005, [1e-5, 1e-5, 2e-5])
+        # Preserve physical rotor angular momentum despite visual slowdown.
+        # The complete neutral-pose tensor is compensated in the base below.
+        polar = rotor['prop_inertia_kg_m2'] * rotor['rotor_velocity_slowdown']
+        inertial(link, .005, [polar / 2, polar / 2, polar])
         box(link, 'propeller', [0, 0, 0, 0, 0, 0], [2 * rotor['radius_m'], .025, .008], orange)
         joint = node(model, 'joint', name=f'rotor_{index}_joint', type='revolute')
         node(joint, 'parent', 'base_link')
@@ -106,14 +147,15 @@ def generate():
         node(limit, 'upper', 1e16)
         plugin(model, 'multicopter-motor-model', 'MulticopterMotorModel', {
             'jointName': f'rotor_{index}_joint', 'linkName': f'rotor_{index}',
-            # MATLAB spin sign is about the thrust axis in FRD; Gazebo local +Z
-            # points along thrust, so its rotation sign is reversed.
-            'turningDirection': 'ccw' if rotor['spin_frd'] < 0 else 'cw',
-            'timeConstantUp': .025, 'timeConstantDown': .025,
+            # Checked against CALC_FM -> DynamicInflowModel, including its
+            # -SpinDir input. Gazebo reaction torque opposes rotor rotation.
+            'turningDirection': 'cw' if rotor['spin_frd'] < 0 else 'ccw',
+            'timeConstantUp': rotor['time_constant_up_s'],
+            'timeConstantDown': rotor['time_constant_down_s'],
             'maxRotVelocity': rotor['max_speed_rad_s'], 'motorConstant': rotor['thrust_coefficient'],
             'momentConstant': rotor['moment_ratio_m'], 'commandSubTopic': 'command/motor_speed',
             'actuator_number': index, 'rotorDragCoefficient': .0001,
-            'rollingMomentCoefficient': 1e-6, 'rotorVelocitySlowdownSim': 10, 'motorType': 'velocity'})
+            'rollingMomentCoefficient': 1e-6, 'rotorVelocitySlowdownSim': rotor['rotor_velocity_slowdown'], 'motorType': 'velocity'})
     for index, surface in enumerate(DATA['surfaces']):
         link = node(model, 'link', name=surface['name'])
         cp = surface['cp_flu_m']
@@ -134,14 +176,17 @@ def generate():
         plugin(model, 'joint-position-controller', 'JointPositionController', {
             'joint_name': f'servo_{index}', 'sub_topic': f'servo_{index}',
             'p_gain': 1, 'i_gain': 0, 'd_gain': .02, 'cmd_max': 2, 'cmd_min': -2})
-        aero = DATA[surface['profile']]
+        aero = surface['aerodynamics']
         plugin(model, 'lift-drag', 'LiftDrag', {
-            'a0': aero['a0_rad'], 'cla': aero['cla'], 'cda': .65, 'cma': 0,
-            'alpha_stall': aero['stall_rad'], 'cla_stall': -3.85, 'cda_stall': -.92, 'cma_stall': 0,
+            'a0': aero['a0_rad'], 'cla': aero['cla'], 'cda': aero['cda'], 'cma': aero['cma_m'],
+            'alpha_stall': aero['stall_rad'], 'cla_stall': aero['cla_stall'],
+            'cda_stall': aero['cda_stall'], 'cma_stall': aero['cma_stall_m'],
             'cp': cp, 'area': surface['area_m2'], 'air_density': 1.225,
-            'forward': '1 0 0', 'upward': '0 0 1' if index < 6 else '0 -1 0',
+            'forward': '1 0 0', 'upward': '0 0 1' if index < 6 else '0 1 0',
             'link_name': 'base_link', 'control_joint_name': f'servo_{index}',
-            'control_joint_rad_to_cl': -1.5})
+            'control_joint_rad_to_cl': aero['control_joint_rad_to_cl'],
+            'cm_delta': aero['cm_delta_m_rad']})
+    compensate_base_inertia(model, base)
     node(model, 'static', 'false')
     ET.indent(sdf, space='  ')
     (ROOT / 'model.sdf').write_text('<?xml version="1.0"?>\n<!-- Experimental integration model; regenerate with generate_model.py. -->\n' + ET.tostring(sdf, encoding='unicode') + '\n')
